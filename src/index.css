@@ -11,3 +11,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+item {
+  font-size: 0.875rem;
+  line-height: 1.3125;
+  font-weight: 400;
+  color: black;
+}
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 1rem .5rem;
+}
+
+
+li:nth-of-type(2n) {
+  background: #fafafa;
+}
+
+li span {
+  flex: 1 0;
+  color: black;
+}
+
+title {
+    font-weight: 700;
+    font-size: .74375rem;
+    color: #7290a0;
+    text-transform: uppercase;
+}
