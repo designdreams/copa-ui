@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
-import DateTimePicker from "react-datetime-picker";
+import DatePicker from "react-date-picker";
 import imageUrl from '../images/travelimg1.jpg'
+import moment from "moment-timezone";
+const axios = require('axios');
+const divStyle = {
+    width: '100%',
+    height: '1000px' ,
+    backgroundImage: `url(${imageUrl})`,
+    backgroundSize:  'cover',
+    //backgroundColor: #999,
+};
 
-
-
+moment.tz.setDefault("America/Los_Angeles");
 class TravelDetail extends Component {
 
             Trip={
@@ -13,8 +21,8 @@ class TravelDetail extends Component {
                 travelerName:'',
                 travelStartDate:'',
                 tripId:'',
-                Source:'',
-                Destination:'',
+                source:'',
+                destination:'',
                 travelMonth:'',
                 mode:'',
                 airways:'',
@@ -27,7 +35,7 @@ class TravelDetail extends Component {
               //  Itinerary:'',
               //  OperatedBy:'',
                // ServiceObtained:'',
-                PreviouslyTravel:false,
+                previouslyTravel:false,
             };
 
     constructor(props) {
@@ -42,6 +50,8 @@ class TravelDetail extends Component {
         this.handleDateChange = this.handleDateChange.bind(this);
        this.handleInputChange=this.handleInputChange.bind(this);
     }
+
+
     handleChange(event) {
 
         const target = event.target;
@@ -49,7 +59,6 @@ class TravelDetail extends Component {
         const name = target.name;
         let item = {...this.state.trip};
          item[name] = value;
-
         this.setState({trip:item});
     }
 
@@ -62,26 +71,38 @@ class TravelDetail extends Component {
     async handleSubmit(event) {
         event.preventDefault();
         const {trip} = this.state;
-        this.setState({trips:{trip}})
+        this.setState({trips:{trip}});
+        /*const options = {
+            headers: {'content-Type': 'application/json'}
+        };*/
+           // alert(JSON.stringify(this.state));
+        axios.post(`${process.env.REACT_APP_BACKEND_HOST_GCP}/createTrip`,JSON.stringify(this.state),{
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
 
-            await fetch(`http://localhost:8081/tc/createTrip`, {
-            method: (trip.id) ? 'PUT' : 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.state.trips),
+            ).then((response) => {
+                alert(JSON.stringify(response.data.respMessage));
+                console.log(response);
+        }).catch((error) => {
+            console.log(JSON.stringify(error));
+            console.log(error);
+            alert(JSON.stringify(error.message));
         });
-      // this.props.history.push('http://localhost:8081/tc');
     };
 
 
     handleStartDateChange = date => {
         let datestate=this.state.trip;
         datestate.travelStartDate=date;
+        var day = date.getDate();
+        var month = date.getMonth();
+        var year = date.getFullYear();
+        var fomratDate=month+'/'+day+'/'+year;
 
         this.setState({
-            travelStartDate:date,
+            travelStartDate:fomratDate,
         });
     };
 
@@ -101,6 +122,7 @@ class TravelDetail extends Component {
 
     handleDateChange = date => {
         let datestate=this.state.trip;
+
         datestate.ReturnDate=date;
         this.setState({
             ReturnDate:date,
@@ -111,15 +133,14 @@ class TravelDetail extends Component {
 
 
     render(){
-        const title=<h1 >{"Traveler Detail"}</h1>;
+        const title=<h1 >{"Travler Detail"}</h1>;
         const {trip}=this.state;
-
 
      /*   if (!isLoading) { //need to change based on requirement
             return <p>Loading...</p>;
         }*/
 
-        return<div style={{backgroundImage: `url(${imageUrl})` }}>
+        return<div style={divStyle}>
             <Container style={{fontWeight: 'bold'}} >
                  <Form onSubmit={this.handleSubmit}>
                     {title}
@@ -137,8 +158,8 @@ class TravelDetail extends Component {
 
                    <FormGroup>
                     <Label for="StartDate">StartDate</Label>
-                    <DateTimePicker name="travelStartDate" id="travelStartDate" value={trip.travelStartDate || ''}
-                           onChange={this.handleStartDateChange} autoComplete="Date"/>
+                    <DatePicker name="travelStartDate" id="travelStartDate" value={trip.travelStartDate || ''}
+                           onChange={this.handleStartDateChange} autoComplete="Date" minDate={moment().toDate()}/>
                     </FormGroup>
 
                   {/*  <FormGroup>
@@ -149,13 +170,13 @@ class TravelDetail extends Component {
 
                     <FormGroup>
                     <Label for="Source">Source</Label>
-                    <Input type="text" name="Source" id="Source" value={trip.Source || ''}
+                    <Input type="text" name="source" id="source" value={trip.source || ''}
                            onChange={this.handleChange} autoComplete="Source" maxLength={3}/>
                     </FormGroup>
 
                     <FormGroup>
                     <Label for="Destination">Destination</Label>
-                    <Input type="text" name="Destination" id="Destination" value={trip.Destination || ''}
+                    <Input type="text" name="destination" id="destination" value={trip.destination || ''}
                            onChange={this.handleChange} autoComplete="Destination" maxLength={3}/>
                     </FormGroup>
 
@@ -179,7 +200,7 @@ class TravelDetail extends Component {
 
                     <FormGroup>
                     <Label for="PreviouslyTravel">PreviouslyTravel</Label>{'  '}
-                    <input type="checkbox"  className="text-center" name="PreviouslyTravel" id="PreviouslyTravel" checked={this.state.trip.PreviouslyTravel}
+                    <input type="checkbox"  className="text-center" name="previouslyTravel" id="previouslyTravel" checked={this.state.trip.previouslyTravel}
                            onChange={this.handleInputChange} autoComplete="PreviouslyTravel" />
                     </FormGroup>
 
@@ -225,9 +246,16 @@ class TravelDetail extends Component {
                     </FormGroup>
                 </Form>
 
+
+
             </Container>
 
+
+
         </div>
+
+
+
     }
 }
 
