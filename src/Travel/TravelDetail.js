@@ -133,7 +133,7 @@ class TravelDetail extends Component {
 
 
     render(){
-        const title=<h1 >{"Travler Detail"}</h1>;
+        const title=<h1 >{"Travelers Detail"}</h1>;
         const {trip}=this.state;
 
      /*   if (!isLoading) { //need to change based on requirement
