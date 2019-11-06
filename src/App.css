@@ -75,6 +75,24 @@ input[type=text],input[type=email],input[type=date]{
 
 }
 
+button[type=submit]{
+background-color : rgba(40, 75, 99);
+height: 30px;
+width: 100px;
+border-radius:9px;
+color:white;
+margin-top: 50px;
+margin-right: 50px;
+margin-left: 130px;
+}
+
+
+#viewLink{
+padding:200px;
+color:white;
+}
+
+
 
 
 
@@ -93,7 +111,7 @@ padding:100px;
 border: 1px solid black;
 border-radius: 10px;
 width: 400px;
-margin-left:100px;
+margin-left:130px;
 }
 
 #ptc{
@@ -106,6 +124,7 @@ font-weight:bold;
 padding:20px;
 display:inline;
 font-weight:bold;
+
 }
 
 #fdc{

@@ -252,9 +252,10 @@ class TravelDetail extends Component {
                     </FormGroup>
 
 </div>
+<br/>
                     <FormGroup>
-                        <Button color="primary" type="submit">Save</Button>{'   '}
-                        <Button color="secondary" tag={Link} to="/view">view</Button>
+                        <Button id="saveButton" color="primary" type="submit">Save</Button>{'   '}
+                        <Button id="viewLink" color="secondary" tag={Link} to="/view">view</Button>
                     </FormGroup>
                     </div>
                 </Form>
