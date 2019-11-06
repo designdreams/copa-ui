@@ -1,3 +1,9 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+
+$main-font: 'Noto Sans', sans-serif
+
+
 .App {
   text-align: center;
 }
@@ -30,4 +36,92 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.divStyle{
+        height:1300px;
+        width:100%;
+        background-image: url("./images/flyTogether.jpg");
+        background-size:cover;
+        position:absolute;
+        background-attachment: fixed;
+        font-family: Open Sans;
+        }
+
+.containerStyle {
+          width: 700px;
+          height: 1000px;
+          border: 1px solid black;
+          border-radius: 10px;
+          background-color: rgba(40, 75, 99, 0.5);
+          margin:50px 50px 50px 450px;
+}
+
+.title{
+    text-align: center;
+}
+
+
+input[type=text],input[type=email],input[type=date]{
+  width: 400px;
+  height: 20px;
+  padding: 12px 5px;
+  margin: 8px 10px 3px  130px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+
+}
+
+
+
+
+strong{
+margin-right:100px;
+padding:100px;
+}
+
+.formGroups{
+   padding: 10px;
+
+}
+
+
+.checkGroups{
+border: 1px solid black;
+border-radius: 10px;
+width: 400px;
+margin-left:100px;
+}
+
+#ptc{
+padding:20px;
+display:inline;
+font-weight:bold;
+}
+
+#idc{
+padding:20px;
+display:inline;
+font-weight:bold;
+}
+
+#fdc{
+padding:20px;
+font-weight:bold;
+display:inline;
+}
+
+#ctp{
+padding:46px;
+display:inline;
+font-weight:bold;
+}
+
+#itb{
+padding:28px;
+display:inline;
+font-weight:bold;
 }
